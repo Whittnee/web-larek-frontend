@@ -22,7 +22,6 @@ export interface IProductList {
 
 export interface IBasket {
   products: IProduct[];
-  total: number;
   addProduct(product: IProduct): void;
   removeProduct(productId: string): void;
   getBasketList(): IProduct[];
