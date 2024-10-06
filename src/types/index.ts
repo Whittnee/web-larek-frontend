@@ -7,36 +7,47 @@ export interface IProduct {
   price: number | null;
 }
 
-export interface ICustomer {
-  deliveryAddress: string;
-  paymentMethod: string;
-  emailAddress: string;
-  phoneNumber: string
+export interface IOrder {
+  address: string;
+  payment: string;
+  email: string;
+  phone: string;
+  total: number;
+  items: string[];
 }
 
-export interface IProductList {
+export interface IOrderData {
+  orderData: IOrder
+}
+
+export interface IProductsData {
   products: IProduct[];
-  preview: string | null;
-  getProductList(): IProduct[];
+  getProduct(productId: string): IProduct;
 }
 
-export interface IBasket {
+export interface IBasketData {
   products: IProduct[];
   addProduct(product: IProduct): void;
   removeProduct(productId: string): void;
-  getBasketList(): IProduct[];
   totalAmount(): number;
   clearBasket(): void;
+  getBasketCount(): number;
+  isEmpty(): boolean;
+  inBasket(productId: string): boolean;
 }
 
-export interface ICustomerInfo {
-  getCustomerInfo(): ICustomer;
-  setCustomerInfo(customerData: ICustomer): void;
-  checkCustomerValidation(data: Record<keyof ICustomer, string>): boolean;
+export type TCustomerOderData = Pick<IOrder, 'payment' | 'address'>;
+
+export type TCustomerPrivateData = Pick<IOrder, 'email' | 'phone'>
+
+export type TProductMainData = Pick<IProduct, 'id' | 'title' | 'price'> & {
+  index: number;
+};
+
+export type ApiPostMethods = 'POST' | 'PUT' | 'DELETE';
+
+export interface IApi {
+  baseUrl: string;
+  get<T>(uri: string): Promise<T>;
+  post<T>(uri: string, data: object, method?: ApiPostMethods): Promise<T>;
 }
-
-export type TCustomerOderData = Pick<ICustomer, 'paymentMethod' | 'deliveryAddress'>;
-
-export type TCustomerPrivateData = Pick<ICustomer, 'emailAddress' | 'phoneNumber'>
-
-export type TProductMainData = Pick<IProduct, 'id' | 'title' | 'price'>
