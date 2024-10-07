@@ -1,14 +1,20 @@
 import { IApi, IOrder, IProduct } from "../../types";
 
+interface IProductAnswer {
+  total: number;
+  items: IProduct[]
+}
+
+interface IOrderRequest extends IOrder {
+  items: string[],
+  total: number;
+}
+
 interface IOrderAnswer {
   id: string;
   total: number;
 }
 
-interface IProductAnswer {
-  total: number;
-  items: IProduct[]
-}
 
 export class AppApi {
   private _baseApi: IApi;
@@ -21,7 +27,7 @@ export class AppApi {
     return this._baseApi.get<IProductAnswer>(`/product/`).then((result: IProductAnswer) => result.items);
   }
 
-  placeOrder(data: IOrder): Promise<IOrderAnswer> {
+  placeOrder(data: IOrderRequest): Promise<IOrderAnswer> {
     return this._baseApi.post(`/order`, data, 'POST').then((result: IOrderAnswer) => result)
   }
 }

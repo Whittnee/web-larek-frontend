@@ -12,12 +12,10 @@ export interface IOrder {
   payment: string;
   email: string;
   phone: string;
-  total: number;
-  items: string[];
 }
 
 export interface IOrderData {
-  orderData: IOrder
+  order: IOrder
 }
 
 export interface IProductsData {

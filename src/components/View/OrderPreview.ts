@@ -4,17 +4,9 @@ import { IEvents } from "../base/events";
 import { Form } from "../base/Form";
 
 export class OrderPreview extends Form<TCustomerOderData> {
-  protected paymentButtons: HTMLButtonElement[];
 
   constructor(container: HTMLFormElement, events: IEvents) {
     super(container, events);
-    this.paymentButtons = ensureAllElements('.button_alt', this.container);
-    this.paymentButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        this.payment = button.name
-        this.events.emit('order:paymentMethod', button)
-      })
-    })
 
     this.container.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -22,9 +14,9 @@ export class OrderPreview extends Form<TCustomerOderData> {
     })
   }
 
-  set payment(name: string) {
+  set payment(value: string) {
     this.paymentButtons.forEach(button => {
-      this.toggleClass(button, 'button_alt-active', button.name === name)
+      this.toggleClass(button, 'button_alt-active', button.value === value)
     })
   }
 

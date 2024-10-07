@@ -1,6 +1,6 @@
 import { ensureElement } from "../../utils/utils";
 import { IEvents } from "../base/events";
-import { ProductCatalog } from "./ProductInCatalogView";
+import { ProductCatalog } from "./ProductCatalog";
 
 
 export class ProductPreview extends ProductCatalog {
@@ -18,10 +18,6 @@ export class ProductPreview extends ProductCatalog {
 
   set description(description: string) {
     this.setText(this.productDescription, description)
-  }
-
-  set price(price: number | null) {
-    super.price = price;
   }
 
   updateButtonState(price: number | null, value: boolean) {

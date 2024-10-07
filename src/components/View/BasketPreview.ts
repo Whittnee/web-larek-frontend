@@ -43,6 +43,4 @@ export class BasketPreview extends Component<IBasketView> {
       this.setDisabled(this.button, false)
     }
   }
-
-
 }

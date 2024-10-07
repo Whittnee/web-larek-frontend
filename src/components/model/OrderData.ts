@@ -3,43 +3,44 @@ import { IEvents } from "../base/events";
 
 type formErrors = Partial<Record<keyof IOrder, string>>
 
-export class FormData implements IOrderData {
-  protected _orderData: IOrder
+export class OrderData implements IOrderData {
+  protected _order: IOrder
   protected events: IEvents
   formErrors: formErrors = {}
 
   constructor(events: IEvents) {
     this.events = events
-    this._orderData = {
+    this._order = {
       payment: '',
       address: '',
       phone: '',
       email: '',
-      items: [],
-      total: 0
     }
   }
-  
-  get orderData () {
-    return this._orderData  
+
+  set payment(payment: string) {
+    this._order.payment = payment
+  }
+
+  get order () {
+    return this._order  
+  }
+
+  get payment() {
+    return this._order.payment
   }
 
   setOrderField(field: keyof TCustomerOderData, value: string) {
-    this._orderData[field] = value;
-    console.log(this._orderData)
-    
-    if(this.validateOrder()) {
-      return
-    }
-    
+    this._order[field] = value;
+    this.validateOrder()
   }
   
   validateOrder() {
     const errors: typeof this.formErrors = {};
-    if(!this._orderData.address) {
+    if(!this._order.address) {
       errors.address = 'Необходимо указать адрес';
     }
-    if(!this._orderData.payment) {
+    if(!this._order.payment) {
       errors.payment = 'Необходимо выбрать способ оплаты';
     }
     this.formErrors = errors;
@@ -48,20 +49,17 @@ export class FormData implements IOrderData {
   }
 
   setContactsField(field: keyof TCustomerPrivateData, value: string) {
-    this._orderData[field] = value;
-
-    if(this.validateContacts()) {
-      return
-    }
+    this._order[field] = value;
+    this.validateContacts()
   }
 
   validateContacts() {
     const errors: typeof this.formErrors = {};
-    if(!this._orderData.email) {
+    if(!this._order.email) {
       errors.email = 'Необходимо указать email'
     }
 
-    if(!this._orderData.phone) {
+    if(!this._order.phone) {
       errors.phone = 'Необходимо указать номер телефона'
     }
     this.formErrors = errors;
@@ -70,13 +68,11 @@ export class FormData implements IOrderData {
   }
 
   clearForm() {
-    this._orderData = {
+    this._order = {
       payment: '',
       address: '',
       phone: '',
       email: '',
-      items: [],
-      total: 0
     };
   }
 }
