@@ -90,9 +90,6 @@ events.on('order:place', () => {
 
 events.on(/^order\..*:change/, (data: {field: keyof TCustomerOderData, value: string}) => {
   orderData.setOrderField(data.field, data.value)
-})
-
-events.on('order:payment', () => {
   orderPreview.payment = orderData.payment
 })
 
