@@ -258,7 +258,6 @@ type TProductMainData = Pick<IProduct, 'id' | 'title' | 'price'> & {
 Поля:
 - _errors: HTMLElement - ошибки полей ввода
 - submitButton: HTMLButtonElement - кнопка подтверждения 
-- paymentButtons: HTMLButtonElement[] - выбор оплаты
 
 Методы:
 - set valid(value: boolean) - устанавливает валидность кнопки подтверждения
@@ -269,6 +268,9 @@ type TProductMainData = Pick<IProduct, 'id' | 'title' | 'price'> & {
 #### Класса OrderPreview 
 Отвечает за отображение формы заказа с полями ввода в модальном окне, наследует класс Form.
 - constructor(container: HTMLElement, events: Ievents) - конструктор принимает шаблон формы заказа и экземпляр класса `EventEmitter` для инициализаций событий.\
+
+Поля: 
+- paymentButtons: HTMLButtonElement[] - выбор оплаты
 
 Методы:
 - set payment(name: string) - способ оплаты
